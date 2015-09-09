@@ -11,7 +11,7 @@
 
 @interface ViewController ()
 {
-    NSTimer *timer; 
+    NSTimer *timer;
 }
 @property (weak, nonatomic) IBOutlet UCPlotView *progressView;
 @property (weak, nonatomic) IBOutlet UCPlotView *incrementalView;

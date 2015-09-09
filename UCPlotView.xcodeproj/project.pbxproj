@@ -15,6 +15,7 @@
 		52D50C541B9FFDD10020B171 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52D50C521B9FFDD10020B171 /* LaunchScreen.xib */; };
 		52D50C601B9FFDD10020B171 /* UCPlotViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D50C5F1B9FFDD10020B171 /* UCPlotViewTests.m */; };
 		52D50C6C1B9FFE220020B171 /* UCPlotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D50C6B1B9FFE220020B171 /* UCPlotView.m */; };
+		52D50C6E1BA005A30020B171 /* screenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = 52D50C6D1BA005A30020B171 /* screenshot.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,7 @@
 		52D50C5F1B9FFDD10020B171 /* UCPlotViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UCPlotViewTests.m; sourceTree = "<group>"; };
 		52D50C6A1B9FFE220020B171 /* UCPlotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCPlotView.h; sourceTree = "<group>"; };
 		52D50C6B1B9FFE220020B171 /* UCPlotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCPlotView.m; sourceTree = "<group>"; };
+		52D50C6D1BA005A30020B171 /* screenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshot.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 		52D50C431B9FFDD10020B171 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				52D50C6D1BA005A30020B171 /* screenshot.png */,
 				52D50C441B9FFDD10020B171 /* Info.plist */,
 				52D50C451B9FFDD10020B171 /* main.m */,
 			);
@@ -215,6 +218,7 @@
 				52D50C4F1B9FFDD10020B171 /* Main.storyboard in Resources */,
 				52D50C541B9FFDD10020B171 /* LaunchScreen.xib in Resources */,
 				52D50C511B9FFDD10020B171 /* Images.xcassets in Resources */,
+				52D50C6E1BA005A30020B171 /* screenshot.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
