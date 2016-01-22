@@ -10,6 +10,7 @@ Draw progress or metering when using AVAudioPlayer / AVAudioRecorder for iOS
 ### ProgressMode
 
 '''objectivec
+
     self.progressView.mode = UCPlotViewModeProgress;
     self.progressView.progressColor = [UIColor redColor];
     self.progressView.plotColor = [UIColor blueColor];
@@ -23,6 +24,7 @@ Draw progress or metering when using AVAudioPlayer / AVAudioRecorder for iOS
 ### incrementMode
 
 '''objectivec
+
 	self.incrementView.mode = UIPlotViewModeIncrement;
 	[self.incrementView addCurrentPeak:@0.5];
 '''
