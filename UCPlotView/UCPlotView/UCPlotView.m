@@ -20,7 +20,7 @@ typedef enum {
 } UCPlotDirection;
 
 
-@implementation NSArray (Reverse)
+@implementation NSArray(Reverse)
 
 - (NSArray *)reversedArray {
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:[self count]];
@@ -43,7 +43,7 @@ typedef enum {
 - (id)dequeue {
     id result = nil;
     if (self.count > 0) {
-        result = self.firstObject;
+        result = [self firstObject];
         [self removeObjectAtIndex:0];
     }
     return result;
@@ -52,7 +52,7 @@ typedef enum {
 - (id)top {
     id top = nil;
     if (self.count > 0) {
-        top = self.firstObject;
+        top = [self firstObject];
     }
     return top;
 }
@@ -275,7 +275,6 @@ typedef enum {
     [maskLayer setStrokeColor:self.plotColor.CGColor];
     [maskLayer setFillColor:[UIColor clearColor].CGColor];
     [maskLayer setPath:maskPath];
-    
     
     [self.layer addSublayer:maskLayer];
     CGPathRelease(maskPath);

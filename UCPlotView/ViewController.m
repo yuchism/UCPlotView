@@ -16,7 +16,6 @@
 @property (weak, nonatomic) IBOutlet UCPlotView *progressView;
 @property (weak, nonatomic) IBOutlet UCPlotView *incrementalView;
 @property (weak, nonatomic) IBOutlet UISlider *progressSlider;
-
 @property (weak, nonatomic) IBOutlet UIButton *btnReset;
 
 
@@ -28,6 +27,8 @@
     [super viewDidLoad];
     self.progressView.mode = UCPlotViewModeProgress;
     self.incrementalView.mode = UCPlotViewModeIncrement;
+    
+    
     self.progressSlider.value = 0.0f;
     self.progressSlider.maximumValue = 1.0f;
     self.progressSlider.minimumValue = 0.0f;
@@ -44,7 +45,6 @@
         [array addObject:[NSNumber numberWithFloat:num]];
     }
     [self.progressView setPeeks:array];
-    
     [self.progressSlider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
     [self startTimer];
 }
