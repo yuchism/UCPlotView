@@ -10,7 +10,7 @@
 
 typedef enum {
     UCPlotViewModeProgress = 1,
-    UCPlotViewModeIncrement,
+    UCPlotViewModeMetering,
 } UCPlotViewMode;
 
 @interface UCPlotView : UIView
@@ -23,4 +23,8 @@ typedef enum {
 @property(nonatomic,strong) UIColor *progressColor;
 @property(nonatomic) UCPlotViewMode mode;
 @property(nonatomic) CGFloat progress;
+
+
+@property(nonatomic) CGFloat plotWidth;
+@property(nonatomic) CGFloat plotMargin;
 @end

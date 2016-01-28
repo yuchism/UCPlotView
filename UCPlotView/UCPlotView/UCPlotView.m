@@ -60,9 +60,8 @@ typedef enum {
 @end
 
 
-#define kLineOffset 1.0f
+#define kLineOffset 2.0f
 #define kLineWidth 2.0f
-#define kLineLengthPerUnit (kLineWidth + kLineOffset)
 #define kMinimumHeight .5f
 
 @interface UCPlotView()
@@ -73,6 +72,8 @@ typedef enum {
     CGFloat _progress;
     CAShapeLayer *_progressLayer;
 
+    CGFloat _plotWidth;
+    CGFloat _plotMargin;
 
     UCPlotDirection _direction;
     UCPlotViewMode _mode;
@@ -88,6 +89,8 @@ typedef enum {
 @synthesize direction = _direction;
 @synthesize progress = _progress;
 @synthesize mode = _mode;
+@synthesize plotWidth = _plotWidth;
+@synthesize plotMargin = _plotMargin;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -113,9 +116,17 @@ typedef enum {
 {
     _plotColor = UIColorFromRGB(0x00AAE7);
     _progressColor = UIColorFromRGB(0x00AAE7);
+    _plotWidth = kLineWidth;
+    _plotMargin = kLineOffset;
+    
     _queue = [[NSMutableArray alloc] init];
     _progressLayer = nil;
     self.mode = UCPlotViewModeProgress;
+}
+
+- (CGFloat) _lineWidthWithOffsetPerUnit
+{
+    return _plotWidth + _plotMargin;
 }
 
 - (void)setMode:(UCPlotViewMode)mode
@@ -162,7 +173,6 @@ typedef enum {
 {
     [super drawRect:rect];
     
-    
     if(self.progressLayer)
     {
         [self.progressLayer removeFromSuperlayer];
@@ -175,10 +185,10 @@ typedef enum {
     CGFloat middle = CGRectGetHeight(self.frame) / 2;
     CGFloat viewWidth = CGRectGetWidth(self.frame);
     
-    NSInteger needPoint = viewWidth / (kLineLengthPerUnit);
+    NSInteger needPoint = viewWidth / [self _lineWidthWithOffsetPerUnit];
     NSArray * displayArray = nil;
 
-    CGFloat plotViewWidth = (kLineLengthPerUnit * ([_queue count] * 1.0));
+    CGFloat plotViewWidth = ([self _lineWidthWithOffsetPerUnit] * ([_queue count] * _plotMargin));
     CGFloat progressPoint = plotViewWidth * _progress;
     
     
@@ -255,9 +265,9 @@ typedef enum {
         height =  (height < kMinimumHeight) ? kMinimumHeight : height;
         CGPathMoveToPoint(maskPath, nil, startX, middle - height);
         CGPathAddLineToPoint(maskPath, nil, startX, middle + height);
-        maskLayer.lineWidth = kLineWidth;
+        maskLayer.lineWidth = _plotWidth;
         
-        startX = (_direction == UCPlotDirectionLeftToRight) ? startX + kLineLengthPerUnit : startX - kLineLengthPerUnit;
+        startX = (_direction == UCPlotDirectionLeftToRight) ? startX + [self _lineWidthWithOffsetPerUnit] : startX - [self _lineWidthWithOffsetPerUnit];
 
     }
     
@@ -268,7 +278,7 @@ typedef enum {
             CGPathMoveToPoint(maskPath, nil ,startX, middle - kMinimumHeight);
             CGPathAddLineToPoint(maskPath, nil ,startX, middle + kMinimumHeight);
             
-            startX = startX + kLineLengthPerUnit;
+            startX = startX + [self _lineWidthWithOffsetPerUnit];
         }
     }
     
@@ -303,7 +313,6 @@ typedef enum {
     [self.progressLayer addSublayer:headLayer];
     [self.progressLayer addSublayer:tailLayer];
     self.progressLayer.mask = maskLayer;
-    
     [self.layer addSublayer:self.progressLayer];
     
     CGContextSaveGState(ctx);

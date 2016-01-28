@@ -25,30 +25,43 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.progressView.mode = UCPlotViewModeProgress;
-    self.incrementalView.mode = UCPlotViewModeIncrement;
     
-    
-    self.progressSlider.value = 0.0f;
-    self.progressSlider.maximumValue = 1.0f;
-    self.progressSlider.minimumValue = 0.0f;
-    
-    self.progressView.progressColor = [UIColor redColor];
-    self.progressView.plotColor = [UIColor blueColor];
-    
-    
-    //generate values
-    NSMutableArray *array = [NSMutableArray array];
-    for (int i = 0; i < 200; i ++)
-    {
-        CGFloat num = arc4random_uniform(100) / 100.0f;
-        [array addObject:[NSNumber numberWithFloat:num]];
-    }
-    [self.progressView setPeeks:array];
-    [self.progressSlider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
+    [self _initMeteringView];
+    [self _initProgressView];
+}
+
+
+- (void) _initMeteringView
+{
+    self.incrementalView.mode = UCPlotViewModeMetering;
+    self.incrementalView.plotColor = [UIColor grayColor];
+    self.incrementalView.plotWidth = 4.0f;
+    self.incrementalView.plotMargin = 2.0f;
     [self startTimer];
 }
 
+- (void) _initProgressView
+{
+    self.progressSlider.value = 0.0f;
+    self.progressSlider.maximumValue = 1.0f;
+    self.progressSlider.minimumValue = 0.0f;
+    [self.progressSlider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    
+    self.progressView.mode = UCPlotViewModeProgress;
+    self.progressView.progressColor = [UIColor redColor];
+    self.progressView.plotColor = [UIColor blueColor];
+    
+    //generate values
+    NSMutableArray *peaks = [NSMutableArray array];
+    for (int i = 0; i < 200; i ++)
+    {
+        CGFloat num = arc4random_uniform(100) / 100.0f;
+        [peaks addObject:[NSNumber numberWithFloat:num]];
+    }
+    [self.progressView setPeeks:peaks];
+
+}
 
 #pragma mark -- For progressView Mode
 - (void) valueChanged:(UISlider *)sender
