@@ -13,6 +13,7 @@ typedef enum {
     UCPlotViewModeMetering,
 } UCPlotViewMode;
 
+IB_DESIGNABLE
 @interface UCPlotView : UIView
 
 - (void) addCurrentPeak:(NSNumber *)number;
@@ -20,7 +21,10 @@ typedef enum {
 - (void) reset;
 
 @property(nonatomic,strong) UIColor *plotColor;
+@property(nonatomic) UIColor *plotBGColor;
 @property(nonatomic,strong) UIColor *progressColor;
+@property(nonatomic,readonly) UIView *bgView;
+
 @property(nonatomic) UCPlotViewMode mode;
 @property(nonatomic) CGFloat progress;
 

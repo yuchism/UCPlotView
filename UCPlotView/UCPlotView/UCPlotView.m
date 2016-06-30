@@ -19,7 +19,6 @@ typedef enum {
     UCPlotDirectionRightToLeft,
 } UCPlotDirection;
 
-
 @implementation NSArray(Reverse)
 
 - (NSArray *)reversedArray {
@@ -60,7 +59,7 @@ typedef enum {
 @end
 
 
-#define kLineOffset 2.0f
+#define kLineOffset 1.0f
 #define kLineWidth 2.0f
 #define kMinimumHeight .5f
 
@@ -71,10 +70,12 @@ typedef enum {
     UIColor *_progressColor;
     CGFloat _progress;
     CAShapeLayer *_progressLayer;
-
+    
     CGFloat _plotWidth;
     CGFloat _plotMargin;
-
+    
+    
+    UIView *_bgView;
     UCPlotDirection _direction;
     UCPlotViewMode _mode;
 }
@@ -91,6 +92,7 @@ typedef enum {
 @synthesize mode = _mode;
 @synthesize plotWidth = _plotWidth;
 @synthesize plotMargin = _plotMargin;
+@synthesize bgView = _bgView;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -101,6 +103,17 @@ typedef enum {
     }
     return self;
 }
+
+- (void) setPlotBGColor:(UIColor *)plotBGColor
+{
+    _bgView.backgroundColor = plotBGColor;
+}
+
+- (UIColor *)plotBGColor
+{
+    return _bgView.backgroundColor;
+}
+
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -118,6 +131,16 @@ typedef enum {
     _progressColor = UIColorFromRGB(0x00AAE7);
     _plotWidth = kLineWidth;
     _plotMargin = kLineOffset;
+    
+    _bgView = [[UIView alloc] initWithFrame:self.bounds];
+    _bgView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    _bgView.backgroundColor = [UIColor blackColor];
+    
+    
+    [self addSubview:_bgView];
+    
+    self.backgroundColor = [UIColor clearColor];
+    
     
     _queue = [[NSMutableArray alloc] init];
     _progressLayer = nil;
@@ -181,13 +204,13 @@ typedef enum {
     
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGContextClearRect(ctx, rect);
-
+    
     CGFloat middle = CGRectGetHeight(self.frame) / 2;
     CGFloat viewWidth = CGRectGetWidth(self.frame);
     
     NSInteger needPoint = viewWidth / [self _lineWidthWithOffsetPerUnit];
     NSArray * displayArray = nil;
-
+    
     CGFloat plotViewWidth = ([self _lineWidthWithOffsetPerUnit] * ([_queue count] * _plotMargin));
     CGFloat progressPoint = plotViewWidth * _progress;
     
@@ -197,7 +220,7 @@ typedef enum {
         if([_queue count] < needPoint)
         {
             displayArray = _queue;
-
+            
         } else
         {
             // graph total width
@@ -205,7 +228,7 @@ typedef enum {
             NSRange range = NSMakeRange(0, 0);
             NSInteger currentIdx = [_queue count] * _progress;
             NSInteger halfOfNeedPoint = (needPoint / 2);
-    
+            
             if(currentIdx < halfOfNeedPoint)
             {
                 range = NSMakeRange(0, needPoint);
@@ -268,7 +291,7 @@ typedef enum {
         maskLayer.lineWidth = _plotWidth;
         
         startX = (_direction == UCPlotDirectionLeftToRight) ? startX + [self _lineWidthWithOffsetPerUnit] : startX - [self _lineWidthWithOffsetPerUnit];
-
+        
     }
     
     if(_mode == UCPlotViewModeProgress)
@@ -296,7 +319,7 @@ typedef enum {
     [headLayer setPath:headPath];
     [headLayer setFillColor:self.progressColor.CGColor];
     [headLayer setStrokeColor:self.progressColor.CGColor];
-
+    
     CGPathRelease(headPath);
     
     
@@ -316,7 +339,7 @@ typedef enum {
     [self.layer addSublayer:self.progressLayer];
     
     CGContextSaveGState(ctx);
-
+    
 }
 
 
