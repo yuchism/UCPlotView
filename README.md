@@ -1,9 +1,7 @@
 # UCPlotView
 Draw progress or metering when using AVAudioPlayer / AVAudioRecorder for iOS
 
-![alt tag](https://raw.githubusercontent.com/yuchism/UCPlotView/master/UCPlotView/screenshot.png)
-
-
+![alt tag](https://raw.githubusercontent.com/yuchism/UCPlotView/master/ScreenShot/screenshot.png)
 
 
 ## mode
@@ -18,13 +16,10 @@ Draw progress or metering when using AVAudioPlayer / AVAudioRecorder for iOS
 	self.progressView.progress = .5;
 ```
 
-![alt tag](https://raw.githubusercontent.com/yuchism/UCPlotView/master/UCPlotView/progressmodeScreenShot.png)
-
-### incrementMode
+### MeteringMode
 
 ```objectivec
-	self.incrementView.mode = UIPlotViewModeIncrement;
+	self.incrementView.mode = UCPlotViewModeMetering;
 	[self.incrementView addCurrentPeak:@0.5];
 ```
 
-![alt tag](https://raw.githubusercontent.com/yuchism/UCPlotView/master/UCPlotView/progressmodeScreenShot.png)
